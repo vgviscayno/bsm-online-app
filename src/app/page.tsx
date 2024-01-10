@@ -30,13 +30,13 @@ export default function Home() {
         </Link>
 
         <Link
-          href="tel:+639176777779"
+          href="tel:+639177776254"
           target="_blank"
           rel="noopener noreferrer"
         >
           <span className="flex items-center justify-center space-x-2">
             <Phone color="#068e2f" size={50} />
-            <p>Ana Marie Viscayno</p>
+            <p>Main Office</p>
           </span>
         </Link>
       </section>
