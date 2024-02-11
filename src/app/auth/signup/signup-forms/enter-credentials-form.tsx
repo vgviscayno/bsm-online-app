@@ -24,10 +24,10 @@ import { SendHorizontal } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-export type SignInWithCredentialsFormValues = z.infer<typeof formSchema>;
+export type formValues = z.infer<typeof formSchema>;
 
-type SignInWithCredentialsFormProps = {
-  onSignIn: (values: SignInWithCredentialsFormValues) => Promise<void>;
+export type Props = {
+  onEnterCredentials: (values: formValues) => Promise<void>;
 };
 
 const formSchema = z.object({
@@ -46,25 +46,25 @@ const formSchema = z.object({
     ),
 });
 
-export default function SignInWithCredentialsForm({
-  onSignIn,
-}: SignInWithCredentialsFormProps) {
-  const form = useForm<SignInWithCredentialsFormValues>({
+export default function EnterCredentialsForm({ onEnterCredentials }: Props) {
+  const form = useForm<formValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       phoneNumber: "",
     },
   });
 
-  async function onSubmit(values: SignInWithCredentialsFormValues) {
-    await onSignIn(values);
+  async function onSubmit(values: formValues) {
+    onEnterCredentials(values);
   }
 
   return (
-    <Card className="w-5/12">
+    <Card className="p-2">
       <CardHeader>
-        <CardTitle>Sign in with your phone number</CardTitle>
-        <CardDescription>An OTP will be sent to your number</CardDescription>
+        <CardTitle>Sign up with your phone number</CardTitle>
+        <CardDescription>
+          An OTP will be sent to your number for verification
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -74,19 +74,25 @@ export default function SignInWithCredentialsForm({
               name="phoneNumber"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Phone number</FormLabel>
+                  <div className="space-y-2">
+                    <FormLabel>Phone Number</FormLabel>
+                    <div className="flex space-x-2 items-center">
+                      <span>+63</span>
+                      <FormControl>
+                        <Input
+                          className="flex-1"
+                          placeholder="xxx xxx xxxx"
+                          type="tel"
+                          {...field}
+                        />
+                      </FormControl>
+                    </div>
 
-                  <div className="flex items-center space-x-2">
-                    <span>+63</span>
-                    <FormControl>
-                      <Input placeholder="xxx xxx xxxx" {...field} />
-                    </FormControl>
+                    <FormDescription>
+                      Enter your Philippine cellphone number.
+                    </FormDescription>
+                    <FormMessage />
                   </div>
-
-                  <FormDescription>
-                    Enter your Philippine cellphone number.
-                  </FormDescription>
-                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -96,6 +102,8 @@ export default function SignInWithCredentialsForm({
       <CardFooter>
         <Button
           type="submit"
+          disabled={form.formState.isSubmitting}
+          aria-disabled={form.formState.isSubmitting}
           onClick={form.handleSubmit(onSubmit)}
           className="w-full"
         >

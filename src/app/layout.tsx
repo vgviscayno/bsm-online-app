@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import AuthProvider from "../context/AuthProvider";
 import { cn } from "../lib/utils";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
 
 export const metadata: Metadata = {
   title: "Coming Soon - Bestseller Meatshop",
@@ -17,14 +19,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
           inter.variable
         )}
       >
-        <AuthProvider>{children}</AuthProvider>
+        {children}
+        {/* <AuthProvider>{children}</AuthProvider> */}
       </body>
     </html>
   );
