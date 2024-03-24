@@ -1,51 +1,29 @@
-import { boolean, datetime, mysqlTable, varchar } from "drizzle-orm/mysql-core";
-import { generateId } from "lucia";
+import { pgTable, text, timestamp } from "drizzle-orm/pg-core";
 
-export const userTable = mysqlTable("user", {
-  id: varchar("id", {
-    length: 255,
-  })
-    .primaryKey()
-    .default(generateId(6)),
-  phone_number: varchar("user_id", {
-    length: 10,
-  }).notNull(),
-  phone_number_verified: boolean("phone_number_verified").default(false),
+export const userTable = pgTable("user", {
+  id: text("id").primaryKey(),
 });
 
-export const sessionTable = mysqlTable("session", {
-  id: varchar("id", {
-    length: 255,
-  })
-    .primaryKey()
-    .default(generateId(6)),
-  userId: varchar("user_id", {
-    length: 255,
-  })
+export const sessionTable = pgTable("session", {
+  id: text("id").primaryKey(),
+  userId: text("user_id")
     .notNull()
     .references(() => userTable.id),
-  expiresAt: datetime("expires_at").notNull(),
+  expiresAt: timestamp("expires_at", {
+    withTimezone: true,
+    mode: "date",
+  }).notNull(),
 });
 
-export const phoneNumberVerificationTable = mysqlTable(
+export const phoneNumberVerificationTable = pgTable(
   "phone_number_verification",
   {
-    id: varchar("id", {
-      length: 255,
-    })
-      .primaryKey()
-      .default(generateId(6)),
-    code: varchar("code", {
-      length: 255,
+    id: text("id").primaryKey(),
+    code: text("code").notNull(),
+    phoneNumber: text("phone_number").notNull(),
+    expiresAt: timestamp("expires_at", {
+      withTimezone: true,
+      mode: "date",
     }).notNull(),
-    userId: varchar("user_id", {
-      length: 255,
-    })
-      .unique()
-      .notNull(),
-    phoneNumber: varchar("phone_number", {
-      length: 255,
-    }).notNull(),
-    expiresAt: datetime("expires_at").notNull(),
   }
 );

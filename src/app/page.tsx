@@ -13,13 +13,13 @@ export default function Home() {
       />
       <h1 className="text-center">Online store under maintenance :)</h1>
       <h2 className="pb-4">For now, you may reach us at:</h2>
-      <section className="flex flex-col items-start justify-center space-y-10 p-4">
+      <section className="flex flex-col items-center justify-center space-y-10 p-4">
         <a
           href="https://www.facebook.com/m.bestseller"
           target="_blank"
           rel="noopener noreferrer"
         >
-          <span className="flex items-center justify-center space-x-2">
+          <span className="flex flex-col items-center justify-center space-x-2">
             <Facebook color="#1835c9" size={50} />
             <span className="flex items-center">
               <p>m.bestseller</p>
@@ -29,14 +29,14 @@ export default function Home() {
         </a>
 
         <a href="tel:+639177776254" target="_blank" rel="noopener noreferrer">
-          <span className="flex items-center justify-center space-x-2">
+          <span className="flex flex-col items-center justify-center space-x-2">
             <Phone color="#068e2f" size={50} />
             <p>Main Office</p>
           </span>
         </a>
 
         <a href="mailto:support@bestsellermeatshop.com" target="_blank">
-          <span className="flex items-center justify-center space-x-2">
+          <span className="flex flex-col items-center justify-center space-x-2">
             <Mail size={50} />
             <p>support@bestsellermeatshop.com</p>
           </span>

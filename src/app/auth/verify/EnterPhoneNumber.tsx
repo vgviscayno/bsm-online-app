@@ -1,4 +1,5 @@
 "use client";
+import { verifyPhoneNumber } from "@/app/auth/verify/action";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -20,14 +21,16 @@ import {
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { isValidPhoneNumber } from "libphonenumber-js";
-import { SendHorizontal } from "lucide-react";
+import { Loader2, SendHorizontal } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 export type FormValues = z.infer<typeof formSchema>;
 
 type Props = {
-  onSignIn: (values: FormValues) => Promise<void>;
+  setPhoneNumberToBeVerified: React.Dispatch<
+    React.SetStateAction<string | null>
+  >;
 };
 
 const formSchema = z.object({
@@ -46,7 +49,9 @@ const formSchema = z.object({
     ),
 });
 
-export default function SignInWithCredentialsForm({ onSignIn }: Props) {
+export default function EnterPhoneNumber({
+  setPhoneNumberToBeVerified,
+}: Props) {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -54,18 +59,39 @@ export default function SignInWithCredentialsForm({ onSignIn }: Props) {
     },
   });
 
+  const {
+    formState: { errors },
+    setError,
+  } = form;
+
   async function onSubmit(values: FormValues) {
-    await onSignIn(values);
+    console.log(values);
+    const result = await verifyPhoneNumber(values);
+    console.log({ result });
+
+    if (!result) {
+      setPhoneNumberToBeVerified(values.phoneNumber);
+    } else {
+      setError("root", {
+        message: result.error,
+        type: "400",
+      });
+    }
   }
 
   return (
-    <Card className="w-5/12">
+    <Card>
       <CardHeader>
-        <CardTitle>Sign in with your phone number</CardTitle>
+        <CardTitle>Sign in or Sign up with your phone number</CardTitle>
         <CardDescription>An OTP will be sent to your number</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
+          {!!errors?.root?.message && (
+            <p className="text-sm font-medium text-destructive">
+              {errors?.root?.message}
+            </p>
+          )}
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
@@ -96,9 +122,14 @@ export default function SignInWithCredentialsForm({ onSignIn }: Props) {
           type="submit"
           onClick={form.handleSubmit(onSubmit)}
           className="w-full"
+          disabled={form.formState.isSubmitting}
         >
-          <SendHorizontal className="mr-3" />
-          Send OTP
+          {form.formState.isSubmitting ? (
+            <Loader2 className="mr-3 animate-spin" />
+          ) : (
+            <SendHorizontal className="mr-3" />
+          )}
+          Send OTP to your phone number
         </Button>
       </CardFooter>
     </Card>

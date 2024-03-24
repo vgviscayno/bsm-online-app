@@ -1,10 +1,7 @@
 "use client";
-import GoogleLogo from "@/components/GoogleLogo";
-import { Button } from "@/components/ui/button";
-import { signIn } from "next-auth/react";
 import Image from "next/image";
 import SignInWithCredentialsForm, {
-  SignInWithCredentialsFormValues,
+  FormValues as SignInWithCredentialsFormValues,
 } from "./SignInWithCredentialsForm";
 
 export default function SignInPage() {
@@ -23,21 +20,6 @@ export default function SignInPage() {
         width={300}
         height={300}
       />
-      <Button
-        className="w-5/12"
-        variant="outline"
-        size="lg"
-        onClick={function (e) {
-          signIn("google", {
-            callbackUrl: "/store",
-            redirect: true,
-          });
-        }}
-      >
-        <GoogleLogo className="mr-3" width={30} height={30} />
-        Sign in with Google
-      </Button>
-      <p>or</p>
       <SignInWithCredentialsForm onSignIn={handleSignInWithCredentials} />
     </main>
   );
