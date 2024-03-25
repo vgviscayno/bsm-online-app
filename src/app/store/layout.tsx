@@ -1,14 +1,12 @@
-import { options } from "@/app/api/auth/[...nextauth]/options";
 import MainNavigation from "@/components/MainNavigation";
 import UserNavigation from "@/components/UserNavigation";
-import { getServerSession } from "next-auth";
 import Image from "next/image";
 
-export default async function DashboardLayout({
+export default function DashboardLayout({
   children,
-  className,
-}: React.HTMLAttributes<HTMLElement>) {
-  const session = await getServerSession(options);
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <main className="h-dvh">
       <nav className="flex h-16 items-center px-4 ">
