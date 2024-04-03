@@ -24,7 +24,7 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SendHorizontal } from "lucide-react";
+import { Loader2, SendHorizontal } from "lucide-react";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -41,11 +41,11 @@ type Props = {
 const formSchema = z.object({
   otp: z
     .string()
-    .refine((val) => val.length === 0, "OTP is required")
-    .refine(
-      (val) => val.length > 0 && val.length < 6,
-      "OTP must be 6 characters"
-    ),
+    .refine((val) => {
+      console.log(val);
+      return val.length !== 0;
+    }, "OTP is required")
+    .refine((val) => val.length === 6, "OTP must be 6 characters"),
 });
 
 // auto focus on otp input on render
@@ -60,6 +60,8 @@ export default function EnterPhoneNumberForm({
     },
   });
 
+  const { setError } = form;
+
   async function handleResendOTP() {
     if (!phoneNumberToBeVerified) {
       setPhoneNumberToBeVerifiedIsNullWhileHandleEnterOTPIsRunning(true);
@@ -70,12 +72,35 @@ export default function EnterPhoneNumberForm({
   }
 
   async function onSubmit(values: FormValues) {
+    console.log({ values });
+
     if (!phoneNumberToBeVerified) {
       setPhoneNumberToBeVerifiedIsNullWhileHandleEnterOTPIsRunning(true);
       return;
     }
 
+    // start timer
+
     const result = await verifyOTP(phoneNumberToBeVerified, values.otp);
+
+    console.log({ result });
+    if (!result) {
+      // success
+    } else {
+      if (result.root) {
+        setError("root", {
+          message: result.root,
+        });
+      }
+
+      if (result.reload) {
+        // reload page
+      }
+
+      if (result.resend) {
+        // enable resend button
+      }
+    }
   }
 
   return (
@@ -97,8 +122,6 @@ export default function EnterPhoneNumberForm({
                 <FormItem>
                   <FormLabel>One-time password</FormLabel>
                   <FormControl>
-                    {/* <Input placeholder="xxxxxx" type="password" {...field} /> */}
-
                     <InputOTP
                       maxLength={6}
                       render={({ slots }) => (
@@ -108,6 +131,7 @@ export default function EnterPhoneNumberForm({
                           ))}
                         </InputOTPGroup>
                       )}
+                      {...field}
                     />
                   </FormControl>
                   <FormDescription>Enter the OTP</FormDescription>
@@ -125,7 +149,11 @@ export default function EnterPhoneNumberForm({
           className="w-full"
           disabled={form.formState.isSubmitting}
         >
-          <SendHorizontal className="mr-3" />
+          {form.formState.isSubmitting ? (
+            <Loader2 className="mr-3 animate-spin" />
+          ) : (
+            <SendHorizontal className="mr-3" />
+          )}
           Submit OTP
         </Button>
       </CardFooter>

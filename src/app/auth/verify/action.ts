@@ -51,7 +51,7 @@ async function generatePhoneNumberVerificationCode(
 
   await db.insert(phoneNumberVerificationTable).values({
     code,
-    expiresAt: createDate(new TimeSpan(5, "m")),
+    expiresAt: createDate(new TimeSpan(3, "m")),
     phoneNumber,
     id: generateId(6),
   });
@@ -130,6 +130,7 @@ export async function verifyOTP(phoneNumber: string, otp: string) {
     };
   }
 
+  // no table row found
   if (codeAwaitingVerification.length < 1) {
     return {
       root: "Invalid OTP, please enter correct OTP",
