@@ -88,7 +88,7 @@ export default function EnterPhoneNumber({
         <CardDescription>An OTP will be sent to your number</CardDescription>
       </CardHeader>
       <CardContent>
-        <OTPTimer deadline={addMinutes(new Date(), 3)} />
+        <OTPTimer targetTime={addMinutes(new Date(), 3)} />
         <Form {...form}>
           {!!errors?.root?.message && (
             <p className="text-sm font-medium text-destructive">

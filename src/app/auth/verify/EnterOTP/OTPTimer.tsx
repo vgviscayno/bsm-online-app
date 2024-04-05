@@ -1,31 +1,54 @@
-import { addSeconds, format } from "date-fns";
-import React from "react";
+import React, { type ReactNode } from "react";
 
 type Props = {
-  deadline: Date;
+  targetTime: Date;
 };
 
-function OTPTimer({ deadline }: Props) {
-  console.log({ deadline });
-  const [time, setTime] = React.useState(deadline);
+function OTPTimer({ targetTime }: Props) {
+  const calculateTimeLeft = React.useCallback(
+    function calculateTimeLeft() {
+      const difference = +targetTime - +new Date();
+      let timeLeft: {
+        [key: string]: number;
+      } = {};
 
-  // set time
+      if (difference > 0) {
+        timeLeft = {
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+          minutes: Math.floor((difference / 1000 / 60) % 60),
+          seconds: Math.floor((difference / 1000) % 60),
+        };
+      }
+
+      return timeLeft;
+    },
+    [targetTime]
+  );
+  const [timeLeft, setTimeLeft] = React.useState(calculateTimeLeft());
+
   React.useEffect(() => {
-    const id = window.setInterval(() => {
-      setTime((currentTime) => {
-        const nextTime = addSeconds(currentTime, -1);
-        return nextTime;
-      });
+    const timer = window.setTimeout(() => {
+      setTimeLeft(calculateTimeLeft());
     }, 1000);
 
     return () => {
-      window.clearInterval(id);
+      window.clearTimeout(timer);
     };
-  }, []);
-  // trigger to start time
-  // event handler for when timer ends
+  }, [timeLeft, calculateTimeLeft]);
 
-  return <span>{format(new Date(time), "m:ss")}</span>;
+  let timerComponents: ReactNode[] = [];
+  Object.keys(timeLeft).forEach((interval: string) => {
+    if (!timeLeft[interval]) {
+      return;
+    }
+    timerComponents = [
+      ...timerComponents,
+      <span key={interval}>{timeLeft[interval]}</span>,
+    ];
+  });
+
+  return <div>{timerComponents}</div>;
 }
 
 export default OTPTimer;
