@@ -1,5 +1,3 @@
-"use client";
-import OTPTimer from "@/app/auth/verify/EnterOTP/OTPTimer";
 import { verifyPhoneNumber } from "@/app/auth/verify/action";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,9 +19,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { addMinutes } from "date-fns";
 import { isValidPhoneNumber } from "libphonenumber-js";
 import { Loader2, SendHorizontal } from "lucide-react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -88,7 +86,6 @@ export default function EnterPhoneNumber({
         <CardDescription>An OTP will be sent to your number</CardDescription>
       </CardHeader>
       <CardContent>
-        <OTPTimer targetTime={addMinutes(new Date(), 3)} />
         <Form {...form}>
           {!!errors?.root?.message && (
             <p className="text-sm font-medium text-destructive">

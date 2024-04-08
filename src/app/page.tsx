@@ -8,8 +8,8 @@ export default function Home() {
         priority
         src="/bsm-logo-square.png"
         alt="Bestseller Meatshop Logo"
-        width={300}
-        height={300}
+        width={284}
+        height={284}
       />
       <h1 className="text-center">Online store under maintenance :)</h1>
       <h2 className="pb-4">For now, you may reach us at:</h2>

@@ -38,6 +38,12 @@ type Props = {
   >;
 };
 
+const formatTime = (time: number): string => {
+  const minutes = Math.floor(time / 60);
+  const seconds = time % 60;
+  return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+};
+
 const formSchema = z.object({
   otp: z
     .string()
@@ -62,13 +68,42 @@ export default function EnterPhoneNumberForm({
 
   const { setError } = form;
 
+  // timer
+  const [duration, setDuration] = React.useState(60 * 3 - 10);
+  React.useEffect(() => {
+    if (duration === 0) {
+      console.log("time's up!");
+    }
+  }, [duration]);
+
+  React.useEffect(() => {
+    const timer = window.setTimeout(() => {
+      console.log("I'm running");
+      setDuration((currentTime) => {
+        if (currentTime > 0) {
+          return currentTime - 1;
+        }
+
+        return currentTime;
+      });
+    }, 1000);
+
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, [duration]);
+
+  const [isResending, setIsResending] = React.useState(false);
+
   async function handleResendOTP() {
+    setIsResending(true);
     if (!phoneNumberToBeVerified) {
       setPhoneNumberToBeVerifiedIsNullWhileHandleEnterOTPIsRunning(true);
       return;
     }
 
     await verifyPhoneNumber({ phoneNumber: phoneNumberToBeVerified });
+    setIsResending(false);
   }
 
   async function onSubmit(values: FormValues) {
@@ -113,6 +148,16 @@ export default function EnterPhoneNumberForm({
         </CardDescription>
       </CardHeader>
       <CardContent>
+        <p>Time remaining: {formatTime(duration)}</p>
+        {duration === 0 && (
+          <Button
+            disabled={isResending}
+            aria-disabled={isResending}
+            onClick={handleResendOTP}
+          >
+            Resend OTP
+          </Button>
+        )}
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
