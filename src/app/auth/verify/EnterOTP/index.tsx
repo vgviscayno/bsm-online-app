@@ -66,10 +66,10 @@ export default function EnterPhoneNumberForm({
     },
   });
 
-  const { setError } = form;
+  const { setError, reset } = form;
 
   // timer
-  const [duration, setDuration] = React.useState(60 * 3 - 10);
+  const [duration, setDuration] = React.useState(60 * 3 - 5);
   React.useEffect(() => {
     if (duration === 0) {
       console.log("time's up!");
@@ -93,17 +93,31 @@ export default function EnterPhoneNumberForm({
     };
   }, [duration]);
 
-  const [isResending, setIsResending] = React.useState(false);
+  const [isResendButtonDisabled, setIsResetButtonDisabled] =
+    React.useState(false);
 
   async function handleResendOTP() {
-    setIsResending(true);
+    setIsResetButtonDisabled(true);
+    reset();
     if (!phoneNumberToBeVerified) {
       setPhoneNumberToBeVerifiedIsNullWhileHandleEnterOTPIsRunning(true);
       return;
     }
 
-    await verifyPhoneNumber({ phoneNumber: phoneNumberToBeVerified });
-    setIsResending(false);
+    const result = await verifyPhoneNumber({
+      phoneNumber: phoneNumberToBeVerified,
+    });
+    console.log({ result });
+
+    if (!result) {
+      setIsResetButtonDisabled(false);
+      setDuration(60 * 3 - 5);
+    } else {
+      setError("root", {
+        message: result.error,
+        type: "400",
+      });
+    }
   }
 
   async function onSubmit(values: FormValues) {
@@ -134,6 +148,7 @@ export default function EnterPhoneNumberForm({
 
       if (result.resend) {
         // enable resend button
+        setIsResetButtonDisabled(false);
       }
     }
   }
@@ -144,16 +159,17 @@ export default function EnterPhoneNumberForm({
         <CardTitle>Verification via One-Time Password (OTP)</CardTitle>
         <CardDescription>
           A one-time password has been sent to your phone number for
-          verification
+          verification. Please enter it before the 3 minutes
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <p>Time remaining: {formatTime(duration)}</p>
+        <p>Time remaining before OTP expires: {formatTime(duration)}</p>
         {duration === 0 && (
           <Button
-            disabled={isResending}
-            aria-disabled={isResending}
+            disabled={isResendButtonDisabled}
+            aria-disabled={isResendButtonDisabled}
             onClick={handleResendOTP}
+            variant="link"
           >
             Resend OTP
           </Button>
