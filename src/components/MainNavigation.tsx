@@ -11,18 +11,27 @@ export default function MainNavigation({
         <Link
           href="#"
           // Classname for active link
-          className="text-sm font-medium transition-colors hover:text-primary"
+          className="text-lg font-semibold transition-colors hover:text-primary"
         >
-          Products
+          All
         </Link>
       </li>
       <li>
         <Link
           href="#"
           // Classname for inactive link
-          className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+          className="text-lg font-semibold text-muted-foreground transition-colors hover:text-primary"
         >
-          My orders
+          Meat cuts
+        </Link>
+      </li>
+      <li>
+        <Link
+          href="#"
+          // Classname for inactive link
+          className="text-lg font-semibold text-muted-foreground transition-colors hover:text-primary"
+        >
+          Processed meat
         </Link>
       </li>
     </ul>
