@@ -2,6 +2,12 @@ import SearchBar from "@/components/SearchBar";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
+import { type Metadata } from "next/types";
+
+export const metadata: Metadata = {
+  title: "Bestseller Meatshop",
+  description: "The best meatshop next door!",
+};
 
 export default async function DashboardPage() {
   return (
@@ -14,7 +20,7 @@ export default async function DashboardPage() {
         height={284}
       />
       <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-center">
-        Welcome to Bestseller Meatshop online!
+        Welcome to our store!
       </h1>
       <p className="text-xl text-muted-foreground">
         What do you want to order?
@@ -24,15 +30,15 @@ export default async function DashboardPage() {
         <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
           Browse by selection
         </h2>
-        <div className="flex space-x-4">
+        <div className="flex flex-col justify-center space-y-4">
           <Button variant="link" size="lg" asChild>
-            <Link href="#">All Products</Link>
+            <Link href="/store/search">All Products</Link>
           </Button>
           <Button variant="link" size="lg" asChild>
-            <Link href="#">Meat Cuts</Link>
+            <Link href="/store/search/meat-cuts">Meat Cuts</Link>
           </Button>
           <Button variant="link" size="lg" asChild>
-            <Link href="#">Processed Meat</Link>
+            <Link href="/store/search/processed-meat">Processed Meat</Link>
           </Button>
         </div>
       </div>
