@@ -1,8 +1,3 @@
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/5DQxIEAHVv6
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- */
 import Link from "next/link";
 import { SVGProps } from "react";
 
@@ -14,8 +9,8 @@ export default function Footer() {
           <div className="space-y-2">
             <h2 className="text-lg font-semibold">About Us</h2>
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              Your destination for finding the latest in fashion. From elegant
-              dresses to stylish accessories, we help you express your style.
+              Your destination for finding fresh and high quality meat. From
+              meat cuts to processed meat, we help you satisfy your cravings.
             </p>
           </div>
           <div className="space-y-2">
@@ -24,18 +19,18 @@ export default function Footer() {
               <p className="text-sm">123 Street Rd</p>
               <p className="text-sm">City, State, 12345</p>
             </address>
-            <p className="text-sm">1-234-567-8901</p>
-            <p className="text-sm">support@example.com</p>
+            <p className="text-sm">+639177776254</p>
+            <p className="text-sm">support@bestsellermeatshop.com</p>
           </div>
           <div className="space-y-2">
             <h2 className="text-lg font-semibold">Shipping Information</h2>
             <p className="text-sm">
-              We offer free shipping on all orders over $50. For orders under
-              $50, standard shipping costs $5.99.
+              We offer free shipping on all orders over PHP300. For orders under
+              PHP300, standard shipping costs PHP10/km.
             </p>
             <p className="text-sm">
-              Your order will be delivered within 3-5 business days. For
-              expedited shipping, additional charges apply.
+              Your order will be delivered within store hours. We also entertain
+              scheduled deliveries.
             </p>
             <p className="text-sm">
               For more information, please review our{" "}
@@ -50,10 +45,16 @@ export default function Footer() {
           <div className="space-y-2">
             <h2 className="text-lg font-semibold">Social Media</h2>
             <div className="flex items-center gap-2">
-              <TwitterIcon className="w-4 h-4" />
-              <FacebookIcon className="w-4 h-4" />
-              <InstagramIcon className="w-4 h-4" />
-              <YoutubeIcon className="w-4 h-4" />
+              {/* <TwitterIcon className="w-4 h-4" /> */}
+              <a
+                href="https://www.facebook.com/m.bestseller"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FacebookIcon className="w-4 h-4" />
+              </a>
+              {/* <InstagramIcon className="w-4 h-4" />
+              <YoutubeIcon className="w-4 h-4" /> */}
             </div>
           </div>
         </div>
@@ -72,16 +73,16 @@ export default function Footer() {
         </nav>
         <div className="flex items-center justify-between pt-8 border-t border-gray-200 dark:border-gray-800">
           <p className="text-xs tracking-wide text-gray-500">
-            © 2023 Acme Fashion Inc. All rights reserved.
+            © 2023 Bestseller Meatshop. All rights reserved.
           </p>
-          <div className="flex gap-4 text-sm">
+          {/* <div className="flex gap-4 text-sm">
             <Link className="underline" href="#">
               Terms & Conditions
             </Link>
             <Link className="underline" href="#">
               Privacy Policy
             </Link>
-          </div>
+          </div> */}
         </div>
       </div>
     </footer>

@@ -1,5 +1,5 @@
 import ProductCardPlaceholder from "@/components/ProductCardPlaceholder";
-import { buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { Beef } from "lucide-react";
@@ -33,12 +33,9 @@ export default function ProductCard({ imageSrc }: Props) {
             <div className="text-sm">$99</div>
           </div>
           <div className="p-4 flex items-center justify-center gap-4">
-            <Link
-              className={cn(buttonVariants({ variant: "default" }), "w-full")}
-              href="#"
-            >
+            <Button variant="outline" className="w-full">
               Add to cart
-            </Link>
+            </Button>
           </div>
         </Card>
       </article>

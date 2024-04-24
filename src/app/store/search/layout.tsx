@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import MainNavigation from "@/components/MainNavigation";
 import SearchBar from "@/components/SearchBar";
 import { Metadata } from "next";
@@ -13,7 +14,31 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <main className="h-dvh flex flex-col">{children}</main>;
+  return (
+    <main className="h-dvh flex flex-col">
+      <header className="flex flex-col">
+        <div className="flex items-center justify-center w-full mt-4">
+          <span className="text-lg font-semibold">Bestseller</span>
+
+          <Image
+            priority
+            src="/bsm-logo-square.png"
+            alt="Bestseller Meatshop Logo"
+            width={50}
+            height={50}
+          />
+
+          <span className="text-lg font-semibold">Meatshop</span>
+        </div>
+        <div className="p-4 border-b">
+          <SearchBar />
+        </div>
+      </header>
+      {children}
+
+      <Footer />
+    </main>
+  );
 }
 
 function NavigationBar() {
