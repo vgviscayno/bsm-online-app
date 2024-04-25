@@ -16,8 +16,8 @@ export default function Footer() {
           <div className="space-y-2">
             <h2 className="text-lg font-semibold">Contact Us</h2>
             <address className="not-italic">
-              <p className="text-sm">123 Street Rd</p>
-              <p className="text-sm">City, State, 12345</p>
+              <p className="text-sm">Brgy. Iponan</p>
+              <p className="text-sm">Cagayan de Oro, Misamis Oriental, 9000</p>
             </address>
             <p className="text-sm">+639177776254</p>
             <p className="text-sm">support@bestsellermeatshop.com</p>
