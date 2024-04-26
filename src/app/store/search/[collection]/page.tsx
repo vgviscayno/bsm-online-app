@@ -1,10 +1,8 @@
-import ProductCard from "@/components/ProductCard";
-import SearchBar from "@/components/SearchBar";
-import { type Metadata } from "next/types";
-import Image from "next/image";
 import Footer from "@/components/Footer";
+import SearchBar from "@/components/SearchBar";
+import Image from "next/image";
+import { type Metadata } from "next/types";
 import React from "react";
-import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Search - Bestseller Meatshop",
@@ -18,8 +16,6 @@ export default function SearchByCollectionPage({
     collection: string;
   };
 }) {
-  console.log(params.collection);
-
   return (
     <React.Fragment>
       <div className="flex flex-col h-svh">
@@ -36,7 +32,7 @@ export default function SearchByCollectionPage({
 
           <span className="text-lg font-semibold">Meatshop</span>
           {/* <Link href="/store">
-            
+
           </Link> */}
         </header>
         <section className="p-4 border-b">
@@ -45,9 +41,9 @@ export default function SearchByCollectionPage({
 
         {/* Products List */}
         <div className="mt-4 flex flex-col space-y-4 overflow-auto py-2">
+          {/* <ProductCard />
           <ProductCard />
-          <ProductCard />
-          <ProductCard />
+          <ProductCard /> */}
         </div>
       </div>
       <Footer />

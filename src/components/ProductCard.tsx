@@ -1,16 +1,16 @@
 import ProductCardPlaceholder from "@/components/ProductCardPlaceholder";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
-import { Beef } from "lucide-react";
+import { productTable } from "@/db/schema/products";
 import Image from "next/image";
 import Link from "next/link";
 
 type Props = {
   imageSrc?: string;
+  product: typeof productTable.$inferSelect;
 };
 
-export default function ProductCard({ imageSrc }: Props) {
+export default function ProductCard({ imageSrc, product }: Props) {
   return (
     <Link href="#">
       <article>
@@ -29,8 +29,13 @@ export default function ProductCard({ imageSrc }: Props) {
                 <ProductCardPlaceholder stroke="#fe5858" />
               )}
             </div>
-            <div className="text-base font-bold">WhimsiMug</div>
-            <div className="text-sm">$99</div>
+            <div className="text-base font-bold">{product.name}</div>
+            <div className="text-sm">
+              {new Intl.NumberFormat("en-PH", {
+                style: "currency",
+                currency: "PHP",
+              }).format(product.price!)}
+            </div>
           </div>
           <div className="p-4 flex items-center justify-center gap-4">
             <Button variant="outline" className="w-full">

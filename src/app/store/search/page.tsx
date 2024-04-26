@@ -1,23 +1,36 @@
 import ProductCard from "@/components/ProductCard";
-import SearchBar from "@/components/SearchBar";
+import { db } from "@/db";
+import { collectionTable, productTable } from "@/db/schema/products";
+import { eq } from "drizzle-orm/sql";
 import { type Metadata } from "next/types";
-import Image from "next/image";
-import Footer from "@/components/Footer";
-import React from "react";
 
 export const metadata: Metadata = {
   title: "Search - Bestseller Meatshop",
   description: "The best meatshop next door!",
 };
 
-export default function SearchPage() {
+async function getData() {
+  "use server";
+  const products = db
+    .select()
+    .from(productTable)
+    .leftJoin(collectionTable, eq(productTable.id, collectionTable.id));
+  return products;
+}
+
+export default async function SearchPage() {
+  const products = await getData();
+
+  console.log("asdasd");
+  console.log({ products });
+
   return (
     <section className="flex flex-col h-svh">
       {/* Products List */}
       <div className="mt-4 flex flex-col space-y-4 overflow-auto py-2">
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
+        {products.map(({ product }) => {
+          return <ProductCard key={product.id} product={product} />;
+        })}
       </div>
     </section>
   );
