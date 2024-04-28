@@ -1,6 +1,6 @@
-import Footer from "@/components/Footer";
-import MainNavigation from "@/components/MainNavigation";
-import SearchBar from "@/components/SearchBar";
+import Footer from "@/components/footer";
+import MainNavigation from "@/components/main-navigation";
+import SearchBar from "@/components/search";
 import { Metadata } from "next";
 import Image from "next/image";
 

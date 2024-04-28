@@ -1,4 +1,4 @@
-import ProductCard from "@/components/ProductCard";
+import ProductCard from "@/components/product-card";
 import { db } from "@/db";
 import { collectionTable, productTable } from "@/db/schema/products";
 import { eq } from "drizzle-orm/sql";

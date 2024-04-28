@@ -1,5 +1,5 @@
 "use client";
-import { verifyOTP, verifyPhoneNumber } from "@/app/auth/verify/action";
+import { verifyOTP, verifyPhoneNumber } from "@/app/auth/action";
 import { Button } from "@/components/ui/button";
 import {
   Card,

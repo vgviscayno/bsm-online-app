@@ -1,4 +1,4 @@
-import ProductCardPlaceholder from "@/components/ProductCardPlaceholder";
+import ProductCardPlaceholder from "@/components/product-card-image-placeholder";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { productTable } from "@/db/schema/products";

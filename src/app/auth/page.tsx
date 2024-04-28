@@ -1,10 +1,10 @@
 "use client";
-import EnterOTP from "@/app/auth/verify/EnterOTP";
+import EnterOTP from "@/app/auth/enter-otp";
 import Image from "next/image";
 import React from "react";
-import EnterPhoneNumber from "./EnterPhoneNumber";
+import EnterPhoneNumber from "./enter-phone-number";
 
-import AlertEnterOTPError from "@/app/auth/verify/AlertEnterOTPError";
+import AlertEnterOTPError from "@/app/auth/AlertEnterOTPError";
 import { permanentRedirect } from "next/navigation";
 
 export default function VerifyPhoneNumberPage() {

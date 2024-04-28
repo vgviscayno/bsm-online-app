@@ -1,5 +1,5 @@
-import Footer from "@/components/Footer";
-import SearchBar from "@/components/SearchBar";
+import Footer from "@/components/footer";
+import SearchBar from "@/components/search";
 import Image from "next/image";
 import { type Metadata } from "next/types";
 import React from "react";
