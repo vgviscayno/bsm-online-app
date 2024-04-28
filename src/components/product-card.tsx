@@ -12,7 +12,7 @@ type Props = {
 
 export default function ProductCard({ imageSrc, product }: Props) {
   return (
-    <Link href="#">
+    <Link href="/asdjioasjdaiosdjio">
       <article>
         <Card className="w-full max-w-xs mx-auto rounded-xl border cursor-pointer translate-y-0 hover:translate-y-[-2px] transition-transform">
           <div className="grid gap-4 p-4">

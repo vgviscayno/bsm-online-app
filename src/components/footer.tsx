@@ -62,10 +62,10 @@ export default function Footer() {
           <div className="grid-in-1">
             <Link className="underline" href="#">
               About Us
-            </Link>
+            </Link>{" "}
             <Link className="underline" href="#">
               Contact Us
-            </Link>
+            </Link>{" "}
             <Link className="underline" href="#">
               Shipping Information
             </Link>
