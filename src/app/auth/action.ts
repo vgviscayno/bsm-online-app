@@ -1,5 +1,5 @@
 "use server";
-import type { FormValues as EnterPhoneNumberFormValues } from "@/app/auth/verify/EnterPhoneNumber";
+import type { FormValues as EnterPhoneNumberFormValues } from "@/app/auth/enter-phone-number";
 import { db } from "@/db";
 import { phoneNumberVerificationTable } from "@/db/schema/users";
 import { and, eq } from "drizzle-orm";
