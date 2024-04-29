@@ -64,10 +64,9 @@ export default function AddToCartDialog({ unit }: { unit: string }) {
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Edit profile</DialogTitle>
+            <DialogTitle>Add to Cart</DialogTitle>
             <DialogDescription>
-              Make changes to your profile here. Click save when you&apos;re
-              done.
+              Add additional info here. Click Add to Cart when you&apos;re done.
             </DialogDescription>
           </DialogHeader>
           {/* Form here */}
@@ -86,10 +85,10 @@ export default function AddToCartDialog({ unit }: { unit: string }) {
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className="text-left">
-          <DrawerTitle>Edit profile</DrawerTitle>
-          <DrawerDescription>
-            Make changes to your profile here. Click save when you&apos;re done.
-          </DrawerDescription>
+          <DialogTitle>Add to Cart</DialogTitle>
+          <DialogDescription>
+            Add additional info here. Click Add to Cart when you&apos;re done.
+          </DialogDescription>
         </DrawerHeader>
         {/* Form here */}
         <FillItemDetailsForm unit={unit} />
@@ -105,6 +104,7 @@ export default function AddToCartDialog({ unit }: { unit: string }) {
 
 const formSchema = z.object({
   quantity: z.number().min(0.25).max(10),
+  notes: z.string(),
 });
 
 function FillItemDetailsForm({ unit }: { unit: string }) {
@@ -112,6 +112,7 @@ function FillItemDetailsForm({ unit }: { unit: string }) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       quantity: 1,
+      notes: "",
     },
   });
 
@@ -121,18 +122,37 @@ function FillItemDetailsForm({ unit }: { unit: string }) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex flex-col px-4 space-y-2"
+      >
         <FormField
           control={form.control}
           name="quantity"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Quantity</FormLabel>
+              <FormLabel>Quantity ({unit})</FormLabel>
               <FormControl>
                 <Input {...field} type="number" size={0.25} />
               </FormControl>
-              <span>{unit}</span>
-              <FormDescription>Number of {unit} for this item</FormDescription>
+              <FormDescription>Number of {unit}s for this item</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="notes"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Notes</FormLabel>
+              <FormControl>
+                <Input {...field} placeholder="Do not chop, frozen, etc." />
+              </FormControl>
+              <FormDescription>
+                Special instructions for this item
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
