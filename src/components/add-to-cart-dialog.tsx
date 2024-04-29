@@ -38,7 +38,8 @@ export default function AddToCartDialog({ unit }: { unit: string }) {
   // quantity (plus, minus)
   // notes (for special requests)
   const [open, setOpen] = useState(false);
-  const isDesktop = window?.innerWidth > 768 ?? true;
+  const isDesktop =
+    typeof window !== "undefined" ? window?.innerWidth > 768 : true;
 
   useEffect(() => {
     function handleResize() {
