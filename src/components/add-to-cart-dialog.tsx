@@ -32,6 +32,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import pluralize from "pluralize";
 
 export default function AddToCartDialog({ unit }: { unit: string }) {
   // form
@@ -135,7 +136,9 @@ function FillItemDetailsForm({ unit }: { unit: string }) {
               <FormControl>
                 <Input {...field} type="number" size={0.25} />
               </FormControl>
-              <FormDescription>Number of {unit}s for this item</FormDescription>
+              <FormDescription>
+                Number of {pluralize(unit)} for this item
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}

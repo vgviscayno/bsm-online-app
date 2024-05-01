@@ -1,4 +1,5 @@
 import ProductCard from "@/components/product-card";
+import ProductList from "@/components/product-list";
 import { db } from "@/db";
 import { collectionTable, productTable } from "@/db/schema/products";
 import { eq } from "drizzle-orm/sql";
@@ -11,27 +12,20 @@ export const metadata: Metadata = {
 
 async function getData() {
   "use server";
-  const products = db
+  const rows = db
     .select()
     .from(productTable)
     .leftJoin(collectionTable, eq(productTable.id, collectionTable.id));
-  return products;
+  return rows;
 }
 
 export default async function SearchPage() {
-  const products = await getData();
-
-  console.log("asdasd");
-  console.log({ products });
+  const rows = await getData();
 
   return (
     <section className="flex flex-col h-svh">
       {/* Products List */}
-      <div className="mt-4 flex flex-col space-y-4 overflow-auto py-2">
-        {products.map(({ product }) => {
-          return <ProductCard key={product.id} product={product} />;
-        })}
-      </div>
+      <ProductList products={rows.map((row) => row.product)} />
     </section>
   );
 }
