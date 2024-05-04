@@ -3,6 +3,7 @@ import MainNavigation from "@/components/main-navigation";
 import SearchBar from "@/components/search";
 import { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Bestseller Meatshop",
@@ -17,19 +18,21 @@ export default function DashboardLayout({
   return (
     <main className="h-dvh flex flex-col">
       <header className="flex flex-col">
-        <div className="flex items-center justify-center w-full mt-4">
-          <span className="text-lg font-semibold">Bestseller</span>
+        <Link href="/store">
+          <div className="flex items-center justify-center w-full mt-4">
+            <span className="text-lg font-semibold">Bestseller</span>
 
-          <Image
-            priority
-            src="/bsm-logo-square.png"
-            alt="Bestseller Meatshop Logo"
-            width={50}
-            height={50}
-          />
+            <Image
+              priority
+              src="/bsm-logo-square.png"
+              alt="Bestseller Meatshop Logo"
+              width={50}
+              height={50}
+            />
 
-          <span className="text-lg font-semibold">Meatshop</span>
-        </div>
+            <span className="text-lg font-semibold">Meatshop</span>
+          </div>
+        </Link>
         <div className="p-4 border-b">
           <SearchBar />
         </div>

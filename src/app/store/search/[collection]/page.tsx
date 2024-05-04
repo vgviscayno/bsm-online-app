@@ -1,36 +1,25 @@
-import Footer from "@/components/footer";
-import ProductCard from "@/components/product-card";
+import { getData } from "@/app/store/search/_misc/actions";
 import ProductList from "@/components/product-list";
-import SearchBar from "@/components/search";
-import { db } from "@/db";
-import { collectionTable, productTable } from "@/db/schema/products";
-import { eq } from "drizzle-orm";
-import Image from "next/image";
 import { type Metadata } from "next/types";
-import React from "react";
 
 export const metadata: Metadata = {
   title: "Search - Bestseller Meatshop",
   description: "The best meatshop next door!",
 };
 
-async function getData() {
-  "use server";
-  const rows = db
-    .select()
-    .from(productTable)
-    .leftJoin(collectionTable, eq(productTable.id, collectionTable.id));
-  return rows;
-}
-
 export default async function SearchByCollectionPage({
   params,
+  searchParams,
 }: {
   params: {
     collection: string;
   };
+  searchParams?: { [key: string]: string | undefined };
 }) {
-  const rows = await getData();
+  const rows = await getData({
+    collection: params.collection,
+    searchTerm: searchParams?.search,
+  });
 
   return (
     <section className="flex flex-col h-svh">

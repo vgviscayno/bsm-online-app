@@ -1,11 +1,8 @@
 "use client";
-import EnterOTP from "@/app/auth/enter-otp";
+import EnterOTP from "@/app/auth/_misc/enter-otp";
 import Image from "next/image";
 import React from "react";
-import EnterPhoneNumber from "./enter-phone-number";
-
-import AlertEnterOTPError from "@/app/auth/AlertEnterOTPError";
-import { permanentRedirect } from "next/navigation";
+import EnterPhoneNumber from "./_misc/enter-phone-number";
 
 export default function VerifyPhoneNumberPage() {
   const [phoneNumberToBeVerified, setPhoneNumberToBeVerified] = React.useState<
@@ -38,19 +35,6 @@ export default function VerifyPhoneNumberPage() {
           setPhoneNumberToBeVerified={setPhoneNumberToBeVerified}
         />
       )}
-      {/* In theory, the app shouldn't be in this state, but just in case, */}
-      {/* This component is here if ever the app ends in this state */}
-      <AlertEnterOTPError
-        open={phoneNumberToBeVerifiedIsNullWhileHandleEnterOTPIsRunning}
-        onOpenChange={() => {
-          if (!phoneNumberToBeVerifiedIsNullWhileHandleEnterOTPIsRunning) {
-            permanentRedirect("/auth/verify");
-          }
-          setPhoneNumberToBeVerifiedIsNullWhileHandleEnterOTPIsRunning(
-            !phoneNumberToBeVerifiedIsNullWhileHandleEnterOTPIsRunning
-          );
-        }}
-      />
     </main>
   );
 }

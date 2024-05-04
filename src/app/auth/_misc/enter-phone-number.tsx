@@ -1,4 +1,4 @@
-import { verifyPhoneNumber } from "@/app/auth/action";
+import { verifyPhoneNumber } from "@/app/auth/_misc/action";
 import { Button } from "@/components/ui/button";
 import {
   Card,

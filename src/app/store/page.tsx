@@ -1,5 +1,5 @@
 import SearchBar from "@/components/search";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { type Metadata } from "next/types";
@@ -31,15 +31,24 @@ export default async function DashboardPage() {
           Browse by selection
         </h2>
         <div className="flex flex-col justify-center space-y-4">
-          <Button variant="link" size="lg" asChild>
-            <Link href="/store/search">All Products</Link>
-          </Button>
-          <Button variant="link" size="lg" asChild>
-            <Link href="/store/search/meat-cuts">Meat Cuts</Link>
-          </Button>
-          <Button variant="link" size="lg" asChild>
-            <Link href="/store/search/processed-meat">Processed Meat</Link>
-          </Button>
+          <Link
+            className={buttonVariants({ variant: "outline", size: "lg" })}
+            href="/store/search"
+          >
+            All Products
+          </Link>
+          <Link
+            className={buttonVariants({ variant: "outline", size: "lg" })}
+            href="/store/search/meat-cuts"
+          >
+            Meat Cuts
+          </Link>
+          <Link
+            className={buttonVariants({ variant: "outline", size: "lg" })}
+            href="/store/search/processed-meat"
+          >
+            Processed Meat
+          </Link>
         </div>
       </div>
 

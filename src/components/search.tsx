@@ -1,21 +1,47 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 export default function SearchBar() {
-  async function searchProduct(formData: FormData) {
-    "use server";
+  const searchParams = useSearchParams();
+  const [searchTerm, setSearchTerm] = useState(
+    searchParams.get("search") || ""
+  );
+  const router = useRouter();
+  const pathname = usePathname();
+  async function searchProduct() {
+    console.log({ searchTerm });
+    const params = new URLSearchParams(searchParams);
+    if (searchTerm) {
+      params.set("search", searchTerm);
+    } else {
+      params.delete("search");
+    }
 
-    const keyword = formData.get("keyword");
-    console.log({ keyword });
+    console.log();
+    if (pathname.split("/").length !== 3) {
+      router.replace(`${pathname}/search?${params.toString()}`);
+    } else {
+      router.replace(`${pathname}?${params.toString()}`);
+    }
   }
 
   return (
-    <form className="flex min-w-3/12 space-x-2" action={searchProduct}>
-      <Input name="keyword" placeholder="Search for products..." />
-      <Button size="icon" type="submit">
+    <div className="flex min-w-3/12 space-x-2">
+      <Input
+        placeholder="Search for products..."
+        type="search"
+        value={searchTerm}
+        onChange={(e) => {
+          setSearchTerm(e.currentTarget.value);
+        }}
+      />
+      <Button size="icon" onClick={searchProduct}>
         <Search />
       </Button>
-    </form>
+    </div>
   );
 }

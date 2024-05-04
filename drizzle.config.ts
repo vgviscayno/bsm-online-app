@@ -7,6 +7,6 @@ export default {
   out: "./drizzle",
   driver: "pg",
   dbCredentials: {
-    connectionString: process.env.SUPABASE_CONNECTION_URI!,
+    connectionString: process.env.NEON_DATABASE_URL!,
   },
 } satisfies Config;

@@ -27,7 +27,7 @@ export default function ProductCard({ imageSrc, product }: Props) {
               <ProductCardPlaceholder stroke="#fe5858" />
             )}
           </div>
-          <div className="text-base font-bold">{product.name}</div>
+          <div className="text-base font-bold capitalize">{product.name}</div>
           <div className="text-sm">
             {new Intl.NumberFormat("en-PH", {
               style: "currency",
@@ -36,9 +36,6 @@ export default function ProductCard({ imageSrc, product }: Props) {
           </div>
         </div>
         <div className="p-4 flex items-center justify-center gap-4">
-          {/* <Button variant="outline" className="w-full">
-          Add to cart
-        </Button> */}
           <AddToCartDialog unit={product.unit || "units"} />
         </div>
       </Card>

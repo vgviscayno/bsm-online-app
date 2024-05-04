@@ -25,8 +25,22 @@ export default function Footer() {
           <div className="space-y-2">
             <h2 className="text-lg font-semibold">Shipping Information</h2>
             <p className="text-sm">
-              We offer free shipping on all orders over PHP300. For orders under
-              PHP300, standard shipping costs PHP10/km.
+              We offer free shipping on all orders over{" "}
+              {new Intl.NumberFormat("en-PH", {
+                style: "currency",
+                currency: "PHP",
+              }).format(300)}
+              . For orders under{" "}
+              {new Intl.NumberFormat("en-PH", {
+                style: "currency",
+                currency: "PHP",
+              }).format(300)}
+              , standard shipping costs{" "}
+              {new Intl.NumberFormat("en-PH", {
+                style: "currency",
+                currency: "PHP",
+              }).format(10)}
+              /km.
             </p>
             <p className="text-sm">
               Your order will be delivered within store hours. We also entertain
