@@ -9,4 +9,5 @@ export default {
   dbCredentials: {
     connectionString: process.env.NEON_DATABASE_URL!,
   },
+  strict: true,
 } satisfies Config;

@@ -12,10 +12,8 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
   DrawerFooter,
   DrawerHeader,
-  DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import {
@@ -28,13 +26,16 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { productTable } from "@/db/schema/products";
 import { zodResolver } from "@hookform/resolvers/zod";
+import pluralize from "pluralize";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import pluralize from "pluralize";
 
-export default function AddToCartDialog({ unit }: { unit: string }) {
+type Props = { product: typeof productTable.$inferSelect };
+
+export default function AddToCartDialog({ product }: Props) {
   // form
   // quantity (plus, minus)
   // notes (for special requests)
@@ -65,13 +66,15 @@ export default function AddToCartDialog({ unit }: { unit: string }) {
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Add to Cart</DialogTitle>
+            <DialogTitle>
+              Add <span className="capitalize">{product.name}</span> to Cart
+            </DialogTitle>
             <DialogDescription>
               Add additional info here. Click Add to Cart when you&apos;re done.
             </DialogDescription>
           </DialogHeader>
           {/* Form here */}
-          <FillItemDetailsForm unit={unit} />
+          <FillItemDetailsForm unit={product.unit} />
         </DialogContent>
       </Dialog>
     );
@@ -86,13 +89,15 @@ export default function AddToCartDialog({ unit }: { unit: string }) {
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className="text-left">
-          <DialogTitle>Add to Cart</DialogTitle>
+          <DialogTitle>
+            Add <span className="capitalize">{product.name}</span> to Cart
+          </DialogTitle>
           <DialogDescription>
             Add additional info here. Click Add to Cart when you&apos;re done.
           </DialogDescription>
         </DrawerHeader>
         {/* Form here */}
-        <FillItemDetailsForm unit={unit} />
+        <FillItemDetailsForm unit={product.unit} />
         <DrawerFooter className="pt-2">
           <DrawerClose asChild>
             <Button variant="outline">Cancel</Button>

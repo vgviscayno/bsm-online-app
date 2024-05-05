@@ -36,7 +36,7 @@ export default function ProductCard({ imageSrc, product }: Props) {
           </div>
         </div>
         <div className="p-4 flex items-center justify-center gap-4">
-          <AddToCartDialog unit={product.unit || "units"} />
+          <AddToCartDialog product={product} />
         </div>
       </Card>
     </article>

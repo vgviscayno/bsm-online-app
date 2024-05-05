@@ -1,11 +1,4 @@
-import {
-  integer,
-  pgEnum,
-  pgTable,
-  real,
-  serial,
-  text,
-} from "drizzle-orm/pg-core";
+import { pgEnum, pgTable, real, text } from "drizzle-orm/pg-core";
 import { generateId } from "lucia";
 
 export const unitEnum = pgEnum("unit", ["piece", "pack", "kilogram"]);
@@ -15,8 +8,8 @@ export const productTable = pgTable("product", {
     .primaryKey()
     .$defaultFn(() => generateId(6)),
   name: text("name").unique().notNull(),
-  unit: unitEnum("unit"),
-  price: real("price"),
+  unit: unitEnum("unit").notNull(),
+  price: real("price").notNull().default(1),
   collectionId: text("collection_id").references(() => collectionTable.id),
 });
 

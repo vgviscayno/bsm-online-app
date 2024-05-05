@@ -1,6 +1,8 @@
 import Footer from "@/components/footer";
 import MainNavigation from "@/components/main-navigation";
 import SearchBar from "@/components/search";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,8 +14,12 @@ export const metadata: Metadata = {
 
 export default function DashboardLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: {
+    collection: string[];
+  };
 }) {
   return (
     <main className="h-dvh flex flex-col">
@@ -33,8 +39,46 @@ export default function DashboardLayout({
             <span className="text-lg font-semibold">Meatshop</span>
           </div>
         </Link>
-        <div className="p-4 border-b">
+        <div className="p-2">
           <SearchBar />
+        </div>
+        <div className="p-2 border-b flex justify-between space-x-2">
+          <Link
+            href="/store/search"
+            className={cn(
+              buttonVariants({ size: "default", variant: "outline" }),
+              {
+                underline: typeof params.collection === "undefined",
+              },
+              "grow"
+            )}
+          >
+            All Products
+          </Link>
+          <Link
+            href="/store/search/meat-cuts"
+            className={cn(
+              buttonVariants({ size: "default", variant: "outline" }),
+              {
+                underline: params.collection?.[0] === "meat-cuts",
+              },
+              "grow"
+            )}
+          >
+            Meat Cuts
+          </Link>
+          <Link
+            href="/store/search/processed-meat"
+            className={cn(
+              buttonVariants({ size: "default", variant: "outline" }),
+              {
+                underline: params.collection?.[0] === "processed-meat",
+              },
+              "grow"
+            )}
+          >
+            Processed Meat
+          </Link>
         </div>
       </header>
       {children}
