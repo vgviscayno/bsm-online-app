@@ -30,12 +30,6 @@ export default async function SearchByCollectionPage({
     <section className="flex flex-col h-svh">
       {/* Products List */}
       <ProductList products={rows.map((row) => row.product)} />
-      {/* <div className="mt-4 flex flex-col space-y-4 overflow-auto py-2">
-        {products.length <= 0 && <p className="mx-auto">No products found</p>}
-        {products.map(({ product }) => {
-          return <ProductCard key={product.id} product={product} />;
-        })}
-      </div> */}
     </section>
   );
 }
