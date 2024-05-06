@@ -7,7 +7,7 @@ export async function getData({
   collection,
   searchTerm,
 }: {
-  collection?: string;
+  collection?: string[];
   searchTerm?: string | null;
 }) {
   let rows = db
@@ -18,19 +18,19 @@ export async function getData({
       eq(productTable.collectionId, collectionTable.id)
     );
 
-  if (typeof collection === "string" && typeof searchTerm !== "string") {
-    rows.where(eq(collectionTable.slug, collection));
+  if (Array.isArray(collection) && typeof searchTerm !== "string") {
+    rows.where(eq(collectionTable.slug, collection[0]));
   }
 
-  if (typeof collection !== "string" && typeof searchTerm === "string") {
+  if (!Array.isArray(collection) && typeof searchTerm === "string") {
     rows.where(ilike(productTable.name, `%${searchTerm}%`));
   }
 
-  if (typeof collection === "string" && typeof searchTerm === "string") {
+  if (Array.isArray(collection) && typeof searchTerm === "string") {
     rows.where(
       and(
         ilike(productTable.name, `%${searchTerm}%`),
-        eq(collectionTable.slug, collection)
+        eq(collectionTable.slug, collection[0])
       )
     );
   }
