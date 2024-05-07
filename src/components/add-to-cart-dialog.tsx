@@ -1,4 +1,5 @@
 "use client";
+import ProductCardPlaceholder from "@/components/product-card-image-placeholder";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -28,8 +29,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { productTable } from "@/db/schema/products";
 import { zodResolver } from "@hookform/resolvers/zod";
-import pluralize from "pluralize";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -74,7 +74,7 @@ export default function AddToCartDialog({ product }: Props) {
             </DialogDescription>
           </DialogHeader>
           {/* Form here */}
-          <FillItemDetailsForm unit={product.unit} />
+          <FillItemDetailsForm unit={product.unit} price={product.price} />
         </DialogContent>
       </Dialog>
     );
@@ -97,7 +97,7 @@ export default function AddToCartDialog({ product }: Props) {
           </DialogDescription>
         </DrawerHeader>
         {/* Form here */}
-        <FillItemDetailsForm unit={product.unit} />
+        <FillItemDetailsForm unit={product.unit} price={product.price} />
         <DrawerFooter className="pt-2">
           <DrawerClose asChild>
             <Button variant="outline">Cancel</Button>
@@ -113,7 +113,7 @@ const formSchema = z.object({
   notes: z.string(),
 });
 
-function FillItemDetailsForm({ unit }: { unit: string }) {
+function FillItemDetailsForm({ unit, price }: { unit: string; price: number }) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -127,46 +127,59 @@ function FillItemDetailsForm({ unit }: { unit: string }) {
   }
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col px-4 space-y-2"
-      >
-        <FormField
-          control={form.control}
-          name="quantity"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Quantity ({unit})</FormLabel>
-              <FormControl>
-                <Input {...field} type="number" size={0.25} />
-              </FormControl>
-              <FormDescription>
-                Number of {pluralize(unit)} for this item
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+    <React.Fragment>
+      <ProductCardPlaceholder />
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="flex flex-col px-4 space-y-2"
+        >
+          <FormField
+            control={form.control}
+            name="quantity"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Quantity ({unit})</FormLabel>
+                <FormControl>
+                  <Input {...field} type="number" min={0.25} step={0.25} />
+                </FormControl>
+                <FormDescription>
+                  Price:{" "}
+                  {new Intl.NumberFormat("en-PH", {
+                    style: "currency",
+                    currency: "PHP",
+                  }).format(price)}{" "}
+                  per {unit} <br />
+                  Total amount for this item:{" "}
+                  {new Intl.NumberFormat("en-PH", {
+                    style: "currency",
+                    currency: "PHP",
+                  }).format(field.value * price)}
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <FormField
-          control={form.control}
-          name="notes"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Notes</FormLabel>
-              <FormControl>
-                <Input {...field} placeholder="Do not chop, frozen, etc." />
-              </FormControl>
-              <FormDescription>
-                Special instructions for this item
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit">Add to Cart</Button>
-      </form>
-    </Form>
+          <FormField
+            control={form.control}
+            name="notes"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Notes</FormLabel>
+                <FormControl>
+                  <Input {...field} placeholder="Do not chop, frozen, etc." />
+                </FormControl>
+                <FormDescription>
+                  You can add here special instructions for this item
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button type="submit">Add to Cart</Button>
+        </form>
+      </Form>
+    </React.Fragment>
   );
 }

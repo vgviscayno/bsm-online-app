@@ -32,7 +32,8 @@ export default function ProductCard({ imageSrc, product }: Props) {
             {new Intl.NumberFormat("en-PH", {
               style: "currency",
               currency: "PHP",
-            }).format(product.price!)}
+            }).format(product.price!)}{" "}
+            per {product.unit}
           </div>
         </div>
         <div className="p-4 flex items-center justify-center gap-4">

@@ -1,3 +1,4 @@
+import MeatCuts from "@/components/meat-cuts-dropdown";
 import SearchBar from "@/components/search";
 import { buttonVariants } from "@/components/ui/button";
 import Image from "next/image";
@@ -37,12 +38,13 @@ export default async function DashboardPage() {
           >
             All Products
           </Link>
-          <Link
+          <MeatCuts />
+          {/* <Link
             className={buttonVariants({ variant: "outline", size: "lg" })}
             href="/store/search/meat-cuts"
           >
             Meat Cuts
-          </Link>
+          </Link> */}
           <Link
             className={buttonVariants({ variant: "outline", size: "lg" })}
             href="/store/search/processed-meat"
