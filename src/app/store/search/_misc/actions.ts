@@ -1,7 +1,7 @@
 "use server";
 import { db } from "@/db";
 import { collectionTable, productTable } from "@/db/schema/products";
-import { and, eq, ilike } from "drizzle-orm";
+import { and, eq, ilike, or } from "drizzle-orm";
 
 export async function getData({
   collection,
@@ -10,6 +10,8 @@ export async function getData({
   collection?: string[];
   searchTerm?: string | null;
 }) {
+  console.log(collection, Array.isArray(collection));
+
   let rows = db
     .select()
     .from(productTable)
@@ -19,7 +21,17 @@ export async function getData({
     );
 
   if (Array.isArray(collection) && typeof searchTerm !== "string") {
-    rows.where(eq(collectionTable.slug, collection[0]));
+    if (collection[0] === "meat-cuts") {
+      rows.where(
+        or(
+          eq(collectionTable.slug, "chicken"),
+          eq(collectionTable.slug, "pork"),
+          eq(collectionTable.slug, "beef")
+        )
+      );
+    } else {
+      rows.where(eq(collectionTable.slug, collection[0]));
+    }
   }
 
   if (!Array.isArray(collection) && typeof searchTerm === "string") {

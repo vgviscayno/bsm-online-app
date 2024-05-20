@@ -16,11 +16,6 @@ export default async function SearchByCollectionPage({
   };
   searchParams?: { [key: string]: string | undefined };
 }) {
-  console.log(
-    typeof params.collection,
-    params.collection,
-    Array.isArray(params.collection)
-  );
   const rows = await getData({
     collection: params.collection,
     searchTerm: searchParams?.search,

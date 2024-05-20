@@ -109,7 +109,7 @@ export default function AddToCartDialog({ product }: Props) {
 }
 
 const formSchema = z.object({
-  quantity: z.number().min(0.25).max(10),
+  quantity: z.coerce.number().min(0.25).max(10),
   notes: z.string(),
 });
 
@@ -128,7 +128,11 @@ function FillItemDetailsForm({ unit, price }: { unit: string; price: number }) {
 
   return (
     <React.Fragment>
-      <ProductCardPlaceholder />
+      <ProductCardPlaceholder
+        width={170}
+        height={170}
+        className="ml-auto mr-auto"
+      />
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
