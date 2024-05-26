@@ -1,11 +1,12 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 import { Search } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
-export default function SearchBar() {
+export default function SearchBar({ className }: { className?: string }) {
   const searchParams = useSearchParams();
   const [searchTerm, setSearchTerm] = useState(
     searchParams.get("search") || ""
@@ -30,7 +31,7 @@ export default function SearchBar() {
   }
 
   return (
-    <div className="flex min-w-3/12 space-x-2">
+    <div className={cn(className, "flex min-w-3/12 space-x-2")}>
       <Input
         placeholder="Search for products..."
         type="search"

@@ -1,5 +1,7 @@
+import Cart from "@/components/cart/cart";
 import Footer from "@/components/footer";
 import MainNavigation from "@/components/main-navigation";
+import MeatCuts from "@/components/meat-cuts-dropdown";
 import SearchBar from "@/components/search";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -39,8 +41,9 @@ export default function DashboardLayout({
             <span className="text-lg font-semibold">Meatshop</span>
           </div>
         </Link>
-        <div className="p-2">
-          <SearchBar />
+        <div className="flex p-2">
+          <SearchBar className="flex-grow" />
+          <Cart />
         </div>
         <div className="p-2 border-b flex justify-between space-x-2">
           <Link
@@ -55,18 +58,7 @@ export default function DashboardLayout({
           >
             All Products
           </Link>
-          <Link
-            href="/store/search/meat-cuts"
-            className={cn(
-              buttonVariants({ size: "default", variant: "outline" }),
-              {
-                underline: params.collection?.[0] === "meat-cuts",
-              },
-              "grow"
-            )}
-          >
-            Meat Cuts
-          </Link>
+          <MeatCuts className="grow" />
           <Link
             href="/store/search/processed-meat"
             className={cn(

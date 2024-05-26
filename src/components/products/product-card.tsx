@@ -1,5 +1,5 @@
-import AddToCartDialog from "@/components/add-to-cart-dialog";
-import ProductCardPlaceholder from "@/components/product-card-image-placeholder";
+import AddToCart from "@/components/add-to-cart/add-to-cart";
+import ProductCardPlaceholder from "@/components/products/product-card-image-placeholder";
 import { Card } from "@/components/ui/card";
 import { productTable } from "@/db/schema/products";
 import Image from "next/image";
@@ -37,7 +37,7 @@ export default function ProductCard({ imageSrc, product }: Props) {
           </div>
         </div>
         <div className="p-4 flex items-center justify-center gap-4">
-          <AddToCartDialog product={product} />
+          <AddToCart product={product} />
         </div>
       </Card>
     </article>

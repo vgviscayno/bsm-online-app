@@ -39,12 +39,6 @@ export default async function DashboardPage() {
             All Products
           </Link>
           <MeatCuts />
-          {/* <Link
-            className={buttonVariants({ variant: "outline", size: "lg" })}
-            href="/store/search/meat-cuts"
-          >
-            Meat Cuts
-          </Link> */}
           <Link
             className={buttonVariants({ variant: "outline", size: "lg" })}
             href="/store/search/processed-meat"

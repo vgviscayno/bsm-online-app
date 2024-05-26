@@ -10,9 +10,8 @@ export async function getData({
   collection?: string[];
   searchTerm?: string | null;
 }) {
-  console.log(collection, Array.isArray(collection));
-
-  let rows = db
+  console.log({ collection, searchTerm });
+  let query = db
     .select()
     .from(productTable)
     .leftJoin(
@@ -22,24 +21,35 @@ export async function getData({
 
   if (Array.isArray(collection) && typeof searchTerm !== "string") {
     if (collection[0] === "meat-cuts") {
-      rows.where(
+      console.log("fetching meat cuts");
+      query.where(
         or(
-          eq(collectionTable.slug, "chicken"),
-          eq(collectionTable.slug, "pork"),
+          or(
+            eq(collectionTable.slug, "chicken"),
+            eq(collectionTable.slug, "pork")
+          ),
           eq(collectionTable.slug, "beef")
         )
       );
     } else {
-      rows.where(eq(collectionTable.slug, collection[0]));
+      console.log("fetching collection:", collection[0]);
+      query.where(eq(collectionTable.slug, collection[0]));
     }
   }
 
   if (!Array.isArray(collection) && typeof searchTerm === "string") {
-    rows.where(ilike(productTable.name, `%${searchTerm}%`));
+    console.log("fetching products with the search term:", searchTerm);
+    query.where(ilike(productTable.name, `%${searchTerm}%`));
   }
 
   if (Array.isArray(collection) && typeof searchTerm === "string") {
-    rows.where(
+    console.log(
+      "fetching products with the search term:",
+      searchTerm,
+      "and belongs to collection:",
+      collection[0]
+    );
+    query.where(
       and(
         ilike(productTable.name, `%${searchTerm}%`),
         eq(collectionTable.slug, collection[0])
@@ -47,5 +57,7 @@ export async function getData({
     );
   }
 
-  return await rows;
+  const rows = await query;
+
+  return rows;
 }

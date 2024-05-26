@@ -1,5 +1,5 @@
 import { getData } from "@/app/store/search/_misc/actions";
-import ProductList from "@/components/product-list";
+import ProductList from "@/components/products/product-list";
 import { type Metadata } from "next/types";
 
 export const metadata: Metadata = {

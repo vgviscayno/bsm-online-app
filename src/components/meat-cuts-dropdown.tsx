@@ -8,15 +8,23 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 
-export default function MeatCuts() {
+type Props = {
+  className?: string;
+};
+
+export default function MeatCuts({ className }: Props) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        className={buttonVariants({
-          variant: "outline",
-        })}
+        className={cn(
+          buttonVariants({
+            variant: "outline",
+          }),
+          className
+        )}
       >
         Meat Cuts
       </DropdownMenuTrigger>
