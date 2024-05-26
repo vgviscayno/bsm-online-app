@@ -12,9 +12,6 @@ export default function Cart({}: Props) {
 
   console.log({ cartItems });
 
-  // form
-  // quantity (plus, minus)
-  // notes (for special requests)
   const [open, setOpen] = useState(false);
   const isDesktop =
     typeof window !== "undefined" ? window?.innerWidth > 768 : true;
