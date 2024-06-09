@@ -15,14 +15,20 @@ type Props = {
   product: AddToCartProps["product"];
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  label: string;
 };
 
-export default function AddToCartDialog({ product, open, setOpen }: Props) {
+export default function AddToCartDialog({
+  product,
+  open,
+  setOpen,
+  label,
+}: Props) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="outline" className="w-full">
-          Add to Cart
+          {label}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
@@ -35,7 +41,12 @@ export default function AddToCartDialog({ product, open, setOpen }: Props) {
           </DialogDescription>
         </DialogHeader>
         {/* Form here */}
-        <FillItemDetailsForm product={product} />
+        <FillItemDetailsForm
+          product={product}
+          afterSubmit={() => {
+            setOpen(false);
+          }}
+        />
       </DialogContent>
     </Dialog>
   );

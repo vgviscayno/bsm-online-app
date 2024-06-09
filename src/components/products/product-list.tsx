@@ -7,8 +7,10 @@ type Props = {
 
 export default function ProductList({ products }: Props) {
   return (
-    <div className="mt-4 py-2 overflow-auto grid gap-8 grid-cols-1 md:grid-cols-3">
-      {products.length <= 0 && <p className="mx-auto">No products found</p>}
+    <div className="mt-4 py-2 grid gap-8 grid-cols-1 md:grid-cols-3 min-h-screen">
+      {products.length <= 0 && (
+        <p className="mx-auto col-span-3">No products found</p>
+      )}
       {products.map((product) => {
         return <ProductCard key={product.id} product={product} />;
       })}

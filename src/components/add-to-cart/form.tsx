@@ -46,8 +46,10 @@ export const formSchema = z.object({
 
 export default function FillItemDetailsForm({
   product,
+  afterSubmit,
 }: {
   product: typeof productTable.$inferSelect;
+  afterSubmit?: () => void;
 }) {
   const { unit, price } = product;
 
@@ -66,8 +68,11 @@ export default function FillItemDetailsForm({
         quantity: values.quantity,
         notes: values.notes,
       });
+      if (afterSubmit) {
+        afterSubmit();
+      }
     },
-    [product]
+    [product, afterSubmit]
   );
 
   return (

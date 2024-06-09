@@ -1,17 +1,10 @@
 "use client";
-import { CartItem } from "@/components/add-to-cart/form";
+import CartDialog from "@/components/cart/cart-dialog";
 import { useEffect, useState } from "react";
 
 export type Props = {};
 
 export default function Cart({}: Props) {
-  const cartItems: CartItem[] =
-    typeof window !== "undefined"
-      ? JSON.parse(localStorage?.getItem("cartItems") || "[]")
-      : [];
-
-  console.log({ cartItems });
-
   const [open, setOpen] = useState(false);
   const isDesktop =
     typeof window !== "undefined" ? window?.innerWidth > 768 : true;
@@ -29,7 +22,7 @@ export default function Cart({}: Props) {
     };
   }, []);
 
-  return <></>;
+  return <CartDialog open={open} setOpen={setOpen} />;
 
   // if (isDesktop) {
   //   return <AddToCartDialog product={product} open={open} setOpen={setOpen} />;

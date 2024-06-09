@@ -15,7 +15,7 @@ export default function VerifyPhoneNumberPage() {
   ] = React.useState<boolean>(false);
 
   return (
-    <main className="flex flex-col h-svh mr-auto ml-auto space-y-3 p-3 items-center">
+    <section className="flex flex-col h-svh mr-auto ml-auto space-y-3 p-3 items-center">
       <Image
         priority
         src="/bsm-logo-square.png"
@@ -35,6 +35,6 @@ export default function VerifyPhoneNumberPage() {
           setPhoneNumberToBeVerified={setPhoneNumberToBeVerified}
         />
       )}
-    </main>
+    </section>
   );
 }

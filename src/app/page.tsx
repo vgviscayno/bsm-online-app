@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="flex h-dvh flex-col items-center justify-center p-24">
+    <section className="flex h-dvh flex-col items-center justify-center p-24">
       <Image
         priority
         src="/bsm-logo-square.png"
@@ -52,6 +52,6 @@ export default function Home() {
           <li>2:00 PM - 5:00 PM</li>
         </ul>
       </section>
-    </main>
+    </section>
   );
 }

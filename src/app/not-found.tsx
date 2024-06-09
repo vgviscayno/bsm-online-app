@@ -1,10 +1,10 @@
 import { buttonVariants } from "@/components/ui/button";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <main className="flex flex-col items-center justify-center h-dvh">
+    <section className="flex flex-col items-center justify-center h-dvh">
       <Image
         priority
         src="/bsm-logo-square.png"
@@ -18,6 +18,6 @@ export default function NotFound() {
       <Link href="/store" className={buttonVariants({ variant: "link" })}>
         Go back to home page
       </Link>
-    </main>
+    </section>
   );
 }

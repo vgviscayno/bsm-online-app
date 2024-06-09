@@ -1,6 +1,8 @@
 "use client";
 import AddToCartDialog from "@/components/add-to-cart/dialog";
 import AddToCartDrawer from "@/components/add-to-cart/drawer";
+import { CartItem } from "@/components/add-to-cart/form";
+import { isProductInCart } from "@/components/cart/utils";
 import { productTable } from "@/db/schema/products";
 import { useEffect, useState } from "react";
 
@@ -27,9 +29,32 @@ export default function AddToCart({ product }: Props) {
     };
   }, []);
 
+  const cartItems: CartItem[] =
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage?.getItem("cartItems") || "[]")
+      : [];
+
+  const triggerName = isProductInCart(cartItems, product.id)
+    ? "Modify Order"
+    : "Add to Cart";
+
   if (isDesktop) {
-    return <AddToCartDialog product={product} open={open} setOpen={setOpen} />;
+    return (
+      <AddToCartDialog
+        label={triggerName}
+        product={product}
+        open={open}
+        setOpen={setOpen}
+      />
+    );
   }
 
-  return <AddToCartDrawer product={product} open={open} setOpen={setOpen} />;
+  return (
+    <AddToCartDrawer
+      label={triggerName}
+      product={product}
+      open={open}
+      setOpen={setOpen}
+    />
+  );
 }

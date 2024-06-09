@@ -2,8 +2,10 @@ import { Loader2 } from "lucide-react";
 
 export default function Loading() {
   return (
-    <div className="w-full mr-auto ml-auto">
-      <Loader2 className="mr-3 animate-spin" />
-    </div>
+    <section className="flex flex-col h-svh">
+      <div className="w-full">
+        <Loader2 size={264} className="mr-auto ml-auto animate-spin" />
+      </div>
+    </section>
   );
 }

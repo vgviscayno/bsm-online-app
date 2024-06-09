@@ -49,12 +49,27 @@ export async function getData({
       "and belongs to collection:",
       collection[0]
     );
-    query.where(
-      and(
-        ilike(productTable.name, `%${searchTerm}%`),
-        eq(collectionTable.slug, collection[0])
-      )
-    );
+    if (collection[0] === "meat-cuts") {
+      query.where(
+        and(
+          ilike(productTable.name, `%${searchTerm}%`),
+          or(
+            or(
+              eq(collectionTable.slug, "chicken"),
+              eq(collectionTable.slug, "pork")
+            ),
+            eq(collectionTable.slug, "beef")
+          )
+        )
+      );
+    } else {
+      query.where(
+        and(
+          ilike(productTable.name, `%${searchTerm}%`),
+          eq(collectionTable.slug, collection[0])
+        )
+      );
+    }
   }
 
   const rows = await query;

@@ -14,7 +14,6 @@ export default function SearchBar({ className }: { className?: string }) {
   const router = useRouter();
   const pathname = usePathname();
   async function searchProduct() {
-    console.log({ searchTerm });
     const params = new URLSearchParams(searchParams);
     if (searchTerm) {
       params.set("search", searchTerm);
@@ -22,7 +21,6 @@ export default function SearchBar({ className }: { className?: string }) {
       params.delete("search");
     }
 
-    console.log();
     if (pathname.split("/").length !== 3) {
       router.replace(`${pathname}/search?${params.toString()}`);
     } else {
@@ -38,6 +36,11 @@ export default function SearchBar({ className }: { className?: string }) {
         value={searchTerm}
         onChange={(e) => {
           setSearchTerm(e.currentTarget.value);
+        }}
+        onKeyUp={(e) => {
+          if (e.key === "Enter") {
+            searchProduct();
+          }
         }}
       />
       <Button size="icon" onClick={searchProduct}>

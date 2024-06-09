@@ -16,14 +16,20 @@ type Props = {
   product: AddToCartProps["product"];
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  label: string;
 };
 
-export default function AddToCartDrawer({ product, open, setOpen }: Props) {
+export default function AddToCartDrawer({
+  product,
+  open,
+  setOpen,
+  label,
+}: Props) {
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
         <Button variant="outline" className="w-full">
-          Add to Cart
+          {label}
         </Button>
       </DrawerTrigger>
       <DrawerContent>
@@ -36,7 +42,12 @@ export default function AddToCartDrawer({ product, open, setOpen }: Props) {
           </DialogDescription>
         </DrawerHeader>
         {/* Form here */}
-        <FillItemDetailsForm product={product} />
+        <FillItemDetailsForm
+          product={product}
+          afterSubmit={() => {
+            setOpen(false);
+          }}
+        />
         <DrawerFooter className="pt-2">
           <DrawerClose asChild>
             <Button variant="outline">Cancel</Button>
